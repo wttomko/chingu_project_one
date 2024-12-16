@@ -1,34 +1,61 @@
-class List {
-    constructor(name){
-        this.name = name;
-        this.items = [];
-    }
-    addItem(item){
-        this.items.push(item);
-    }
-
-    removeItem(item){
-        this.items = this.items.filter(i => i !== item);
-    }
-
-    updateItem(oldItem, newItem){
-        this.items = this.items.map(i => i === oldItem ? newItem : i);
-    }
-
-    getItems(){
-        return this.items;
+class Item {
+    constructor(name, category, percentFull=100){
+        this._name = name;
+        this._category = category;
+        this._percentFull = percentFull;
     }
 
     getName(){
-        return this.name;
+        return this._name;
     }
 
     setName(name){
-        this.name = name;
+        this._name = name;
+    }
+
+    getCategory(){
+        return this._category;
+    }
+
+    setCategory(category){
+        this._category = category;
+    }
+
+    getPercentFull(){
+        return this._percentFull;
+    }
+
+    consume(){
+        this._percentFull -= 10;
+    }
+
+}
+
+class List {
+    constructor(name){
+        this._name = name;
+        this._items = [];
+    }
+    addItem(item){
+        if (item instanceof Item) {
+            this._items.push(item);
+        }
+    }
+
+    removeItem(item){
+        this._items = this._items.filter(i => i.name !== item.name);
+    }
+
+    getItems(){
+        return this._items;
+    }
+
+    getName(){
+        return this._name;
     }
 
     clearItems(){
-        this.items = [];
+        this._items = [];
     }
 
 }

@@ -15,6 +15,11 @@ app.use('/inHouse', inHouseRouter.inHouseRouter);
 // Middleware
 app.use(cors());
 
+app.param('itemName', (req, res, next, itemName) => {
+    req.itemName = itemName;
+    next();
+});
+
 // Parse incoming requests
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
